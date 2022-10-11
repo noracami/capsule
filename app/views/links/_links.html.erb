@@ -1,0 +1,29 @@
+<div id="link_list">
+  <ul>
+    <% links.each do |link| %>
+      <li class="text-gray-300 m-3">
+        <div>
+          <%= link.id %>
+          <%= link.title.nil? || link.long_url %>
+          <% if link.user_id.nil? %>
+            Created by Anonymous
+          <% else %>
+            Created by User <%= link.user_id %>
+          <% end %>
+        </div>
+        <div>
+          <%= link_to link.custom_url,
+            link.custom_url,
+            target: '_blank',
+            class: %w(text-black text-xl hover:underline) %>
+          <%= link_to link.long_url,
+            link.long_url,
+            target: '_blank',
+            class: %w(hover:underline hover:text-blue-600) %>
+        </div>
+        <p>last updated: <%= link.updated_at %></p>
+        <p>created at: <%= link.created_at %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>
