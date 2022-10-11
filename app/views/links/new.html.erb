@@ -1,0 +1,34 @@
+<div>
+  <h1 class="font-bold text-4xl">Link#new</h1>
+  <p>Find me in app/views/link/new.html.erb</p>
+  <% if current_user %>
+    <p><%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete} %></p>
+  <% else %>
+    <p><%= link_to "註冊", new_user_registration_path %></p>
+    <p><%= link_to "登入", new_user_session_path %></p>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: @link, data: { turbo: false } do |f| %>
+    <%= render "error_messages", resource: @link %>
+    <div class="mt-6">
+      <%= f.label :title, "名稱" %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="mt-6">
+      <%= f.label :long_url, "原本網址" %>
+      <%= f.text_field :long_url %>
+    </div>
+    <div class="mt-6">
+      <%= f.label :domain, "前綴" %>
+      <%= f.text_field :domain, disabled: true %>
+    </div>
+    <div class="mt-6">
+      <%= f.label :custom_value, "自訂短網址名稱" %>
+      <%= f.text_field :custom_value %>
+    </div>
+    <div class="mt-6">
+      <%= f.submit class: %w(border-2 p-2 cursor-pointer hover:underline) %>
+    </div>
+  <% end %>
+</div>

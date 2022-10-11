@@ -8,3 +8,10 @@
     <p><%= link_to "登入", new_user_session_path %></p>
   <% end %>
 </div>
+<div class="min-w-max">
+  <p><%= link_to "add short link",
+          new_link_path,
+          class: %w(border-2 p-2 cursor-pointer hover:underline) %>
+  </p>
+</div>
+<%= render "links/links", links: @links %>
