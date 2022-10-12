@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+.alert {
+  min-height: 70px;
+  padding: 16px;
+}

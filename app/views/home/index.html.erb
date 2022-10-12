@@ -14,4 +14,5 @@
           class: %w(border-2 p-2 cursor-pointer hover:underline) %>
   </p>
 </div>
-<%= render "links/links", links: @links %>
+<%= render "links/links", links: @links if current_user %>
+<%= render "links/links_from_hashes", links: ActiveSupport::JSON.decode(session['hashes']) if session['hashes'] %>

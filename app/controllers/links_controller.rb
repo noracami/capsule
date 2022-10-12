@@ -5,8 +5,22 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
+    @link.update(user: current_user) if current_user
 
     if @link.save
+      if !current_user
+        hashes = if session['hashes'].nil?
+          []
+          else
+            ActiveSupport::JSON.decode session['hashes']
+          end
+        hashes << {
+          hash: /.*\/([0-9A-Z]+)\b/.match(@link.custom_url)[1],
+          long_url: @link.long_url,
+          custom_url: @link.custom_url
+        }
+        session['hashes'] = ActiveSupport::JSON.encode hashes
+      end
       redirect_to root_path, notice: @link.inspect
     else
       @link.update(domain: get_domain_from_env)
