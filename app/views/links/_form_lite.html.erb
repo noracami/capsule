@@ -1,0 +1,14 @@
+<div class="p-1 w-3/4 text-left xl:text-center xl:min-w-max">
+  <%= form_with model: link, data: { turbo: false } do |f| %>
+    <%= render "links/error_messages", resource: link %>
+    <div class="mt-6">
+      <%= f.label :long_url, "原本網址" %>
+    </div>
+    <div class="mt-6">
+      <%= f.text_field :long_url, placeholder: 'http://loooooooong.url', class: ' w-full' %>
+    </div>
+    <div class="mt-6">
+      <%= f.submit class: %w(border-2 p-2 cursor-pointer hover:underline) %>
+    </div>
+  <% end %>
+</div>

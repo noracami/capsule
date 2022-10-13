@@ -53,7 +53,7 @@ class LinksController < ApplicationController
       _[:long_url] = "http://" << _[:long_url]
     end
     
-    return _.reject { |key| key == "custom_value"} if _.fetch(:custom_value).blank?
+    return _.reject { |key| key == "custom_value"} if _.fetch(:custom_value, nil).nil?
 
     _.merge(
       custom_url: _.fetch(:domain, get_domain_from_env)

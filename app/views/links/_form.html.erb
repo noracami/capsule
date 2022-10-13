@@ -1,0 +1,24 @@
+<div>
+  <%= form_with model: link, data: { turbo: false } do |f| %>
+    <%= render "links/error_messages", resource: link %>
+    <div class="mt-6">
+      <%= f.label :title, "名稱" %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="mt-6">
+      <%= f.label :long_url, "原本網址" %>
+      <%= f.text_field :long_url %>
+    </div>
+    <div class="mt-6">
+      <%= f.label :domain, "前綴" %>
+      <%= f.text_field :domain, disabled: true %>
+    </div>
+    <div class="mt-6">
+      <%= f.label :custom_value, "自訂短網址名稱" %>
+      <%= f.text_field :custom_value %>
+    </div>
+    <div class="mt-6">
+      <%= f.submit class: %w(border-2 p-2 cursor-pointer hover:underline) %>
+    </div>
+  <% end %>
+</div>
