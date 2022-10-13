@@ -4,6 +4,11 @@ class LinksController < ApplicationController
   end
 
   def create
+    old_hashes = if params[:hashes].nil?
+                    []
+                  else
+                    ActiveSupport::JSON.decode params[:hashes] 
+                  end
     @link = Link.new(link_params)
     @link.update(user: current_user) if current_user
 
@@ -14,17 +19,31 @@ class LinksController < ApplicationController
           else
             ActiveSupport::JSON.decode session['hashes']
           end
+        hash_in_hashes = hashes.map { |_| _["hahs"] }
+        old_hashes.reject { |_| _["hash"].in? hash_in_hashes }
+        (hashes << old_hashes).flatten!
         hashes << {
           hash: /.*\/([0-9A-Z]+)\b/.match(@link.custom_url)[1],
           long_url: @link.long_url,
           custom_url: @link.custom_url
         }
-        session['hashes'] = ActiveSupport::JSON.encode hashes
+
+        session['hashes'] = ActiveSupport::JSON.encode hashes.uniq
+      end
+      if !old_hashes.empty?
+        old_hashes.each { |hash|
+          Link.find_by(custom_url: hash.custom_url)&.update(user: current_user)
+        }
+        session['hashes'] = nil
       end
       redirect_to root_path, notice: @link.inspect
     else
       @link.update(domain: get_domain_from_env)
-      render :new, notice: 'fail'
+      if current_user
+        render :new, status: :unprocessable_entity
+      else
+        render 'home/index', status: :unprocessable_entity
+      end
     end
   end
 

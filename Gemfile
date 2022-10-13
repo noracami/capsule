@@ -78,3 +78,5 @@ group :test do
 end
 
 gem "pg", "~> 1.4"
+
+gem "activerecord-session_store", "~> 2.0"

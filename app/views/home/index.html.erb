@@ -1,9 +1,10 @@
-<div class="flex flex-wrap grow p-3 bg-slate-300 border border-violet-400">
+<div class="flex flex-wrap grow p-3 bg-slate-300 border border-violet-400"
+  data-controller="hashes" data-hashes=<%= session['hashes'] %>>
   <div class="p-3 m-2 border border-red-400">
     <h1 class="font-bold text-4xl">Home#index</h1>
     <p>Find me in app/views/home/index.html.erb</p>
     <% if current_user %>
-      <p><%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete} %></p>
+      <p><%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete, "hashes-target": "sign_in" } %></p>
     <% else %>
       <p><%= link_to "註冊", new_user_registration_path %></p>
       <p><%= link_to "登入", new_user_session_path %></p>
@@ -16,11 +17,11 @@
           class: %w(border-2 p-2 cursor-pointer hover:underline) %>
       </div>
     <% else %>
-      <%= render "links/form_lite", link: @new_link %>
+      <%= render "links/form_lite", link: @link %>
     <% end %>
   </div>
   <div class="grow xl:w-1/3 p-3 m-2 border border-blue-400">
     <%= render "links/links", links: @links if current_user %>
-    <%= render "links/links_from_hashes", links: ActiveSupport::JSON.decode(session['hashes']) if session['hashes'] %>
+    <%= render "links/links_from_hashes", links: ActiveSupport::JSON.decode(session['hashes'] || "[]") %>
   </div>
 </div>

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @new_link = Link.new
-    @links = Link.order(id: :DESC)
-    @links = @links.where(user: current_user) if current_user
+    @link = Link.new
+    @links = Link.where(user: current_user).order(id: :DESC) if current_user
+    @links = session['hashes'] if !current_user
   end
 end
