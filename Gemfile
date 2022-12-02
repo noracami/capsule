@@ -80,3 +80,7 @@ end
 gem "pg", "~> 1.4"
 
 gem "activerecord-session_store", "~> 2.0"
+
+gem "facebookbusiness", "~> 0.15.0"
+
+gem "dotenv-rails", "~> 2.8"

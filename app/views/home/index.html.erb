@@ -1,13 +1,15 @@
+<%= render "shared/pixel" %>
 <div class="flex flex-wrap grow p-3 bg-slate-300 border border-violet-400"
-  data-controller="hashes" data-hashes=<%= session['hashes'] %>>
+  data-controller="hashes" data-hashes=<%= session['hashes'] || "{}" %> data-signin=<%= current_user ? true : false %>>
   <div class="p-3 m-2 border border-red-400">
     <h1 class="font-bold text-4xl">Home#index</h1>
     <p>Find me in app/views/home/index.html.erb</p>
     <% if current_user %>
-      <p><%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete, "hashes-target": "sign_in" } %></p>
+      <p><%= link_to "登出", destroy_user_session_path, data: { turbo_method: :delete } %></p>
     <% else %>
       <p><%= link_to "註冊", new_user_registration_path %></p>
       <p><%= link_to "登入", new_user_session_path %></p>
+      <p><%= link_to "註冊", new_user_registration_path(ref: "Purchase") %></p>
     <% end %>
   </div>
   <div class="p-3 m-2 grow flex justify-center xl:grow-0 xl:block">

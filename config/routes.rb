@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     # Redirests signing out users back to index
     get "users", to: "home#index"
+    get "/users/sign_up", to: "users/registrations#new"
   end
 
   devise_for :users, controllers: {

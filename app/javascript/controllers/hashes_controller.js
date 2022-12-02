@@ -1,16 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["ul", "sign_in"]
+  static targets = ["ul"]
   connect() {
     this.hashes = this.element.dataset.hashes
+    this.isSignIn = this.element.dataset.signin
     if (this.hashes) {
       localStorage["hashes"] = this.hashes
     } else {
-      this.createLinksFromHashes(localStorage["hashes"])
+      localStorage["hashes"] &&
+        this.createLinksFromHashes(localStorage["hashes"])
     }
-    console.log(this.hashes)
-    if (this.sign_inTarget) {
+    if (this.isSignIn) {
       this.createShortUrlField(localStorage["hashes"])
       localStorage.removeItem("hashes")
     } else {
