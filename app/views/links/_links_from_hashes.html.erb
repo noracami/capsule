@@ -1,0 +1,23 @@
+<div>
+  <ul data-hashes-target="ul">
+    <% links.reverse_each.with_index do |link, idx| %>
+      <li class="text-gray-300 m-3">
+        <div>
+          <%= links.size - idx %>
+          <%= link['long_url'] %>
+          Created by Anonymous
+        </div>
+        <div>
+          <%= link_to link['custom_url'],
+            link['custom_url'],
+            target: '_blank',
+            class: %w(text-black text-xl hover:underline) %>
+          <%= link_to link['long_url'],
+            link['long_url'],
+            target: '_blank',
+            class: %w(hover:underline hover:text-blue-600) %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

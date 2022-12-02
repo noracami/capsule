@@ -13,12 +13,18 @@
     <header>
       <%= link_to "Home", root_path, class: %w(m-2 text-6xl font-thin hover:bg-gray-100) %>
     </header>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    <div class="p overflow-y-auto">
+      <p class="alert alert-success">
+        <% if notice %>
+          <%= notice %>
+        <% end %>
+      </p>
+      <p class="alert alert-danger">
+        <% if alert %>
+          <%= alert %>
+        <% end %>
+      </p>
+    </div>
     <main class="container mx-auto mt-14 px-5 flex">
       <%= yield %>
     </main>
